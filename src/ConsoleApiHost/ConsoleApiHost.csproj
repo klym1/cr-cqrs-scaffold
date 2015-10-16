@@ -144,6 +144,24 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommandHandlers\CommandHandlers.csproj">
+      <Project>{570043DB-7BB4-460E-8EDF-55F3066CD71C}</Project>
+      <Name>CommandHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Denormalizers\Denormalizers.csproj">
+      <Project>{1887291F-44E4-4C00-82FC-F8B3C1A32DC5}</Project>
+      <Name>Denormalizers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NancyModules\NancyModules.csproj">
+      <Project>{bf641cc8-c25f-453b-9876-f070de1c9ec1}</Project>
+      <Name>NancyModules</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj">
+      <Project>{E63D8F1E-1DC7-4598-8278-5CDDCA518DC2}</Project>
+      <Name>ViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

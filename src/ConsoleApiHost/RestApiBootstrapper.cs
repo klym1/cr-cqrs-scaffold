@@ -65,27 +65,7 @@ namespace ConsoleApiHost
             pipelines.AfterRequest.AddItemToEndOfPipeline(After);
 
             pipelines.OnError.AddItemToEndOfPipeline(Error);
-            ;
             //base.ApplicationStartup(container, pipelines);
-        }
-
-        protected override DiagnosticsConfiguration DiagnosticsConfiguration
-        {
-            get
-            {
-                if (ConfigurationManager.AppSettings.AllKeys.Contains("DashboardPassword"))
-                {
-                    return new DiagnosticsConfiguration
-                    {
-                        Password = ConfigurationManager.AppSettings["DashboardPassword"]
-                    };
-                }
-                else
-                {
-                    return new DiagnosticsConfiguration();
-                }
-
-            }
         }
 
         //if viewmodels are not yet built, return 503 unavailable for all gets
@@ -176,7 +156,7 @@ namespace ConsoleApiHost
             var viewmodel = new InMemoryViewModelRepository();
             var snapshotPath = ConfigurationManager.AppSettings["snapshotPath"];
             var snapshotVersion = ConfigurationManager.AppSettings["snapshotVersion"];
-            var streamName = ConfigurationManager.AppSettings["stream-name"];
+            var streamName = ConfigurationManager.AppSettings["streamName"];
 
             var snapshottingDispatcher = new ProtoBufSnapshottingResolvedEventDispatcher(() =>
             {
@@ -210,7 +190,7 @@ namespace ConsoleApiHost
 
             container.Register<IDispatcher<ResolvedEvent>>(loggingDispatcher);
 
-            var subscriber = new EventStoreSubscriber(conn, loggingDispatcher, streamName, esLogger, startingEvent, 7000, 70000);
+            var subscriber = new EventStoreSubscriber(conn, loggingDispatcher, streamName, esLogger, startingEvent, 4096, 70000);
 
             container.Register(subscriber);
         }

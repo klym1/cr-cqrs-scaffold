@@ -18,7 +18,7 @@ namespace ConsoleApiHost
             var logPort = ushort.Parse(ConfigurationManager.AppSettings["logPort"]);
 
             var logManager = Logging.ConfigureLogary(
-                "(APPLICATION NAME) API", logPath, errorLogPath, logHost, logPort);
+                "Widgets API", logPath, errorLogPath, logHost, logPort);
 
             HostFactory.Run(
                 x =>
@@ -31,12 +31,14 @@ namespace ConsoleApiHost
                             s.WhenStopped(tc => tc.Stop());
                         });
                     x.RunAsLocalService();
-                    x.SetDescription("(APPLICATION NAME) API Host");
-                    x.SetDisplayName("(APPLICATION NAME)APIHost");
-                    x.SetServiceName("(APPLICATION NAME)APIHost");
+                    x.SetDescription("Widgets API Host");
+                    x.SetDisplayName("WidgetsAPIHost");
+                    x.SetServiceName("WidgetsAPIHost");
                     x.UseLogary(logManager);
                     x.StartAutomaticallyDelayed();
                 });
+
+            Console.ReadLine();
         }
     }
 
