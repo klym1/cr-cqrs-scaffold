@@ -1,6 +1,6 @@
-namespace Hoverhand
+namespace build
 
-module BuildCommon =
+module common =
 
     open Fake
     open System
@@ -38,7 +38,7 @@ module BuildCommon =
             |> NUnit (fun p ->
                 {p with 
                     DisableShadowCopy = true;
-                    ToolPath = "../../tools/NUnit";
+                    ToolPath = "../tools/NUnit";
                     OutputFile = outputPath
                 }
             )
@@ -48,10 +48,9 @@ module BuildCommon =
         !! "./**/packages.config"
         |> Seq.iter (RestorePackage (fun p -> 
             { p with
-                Sources =   "https://www.nuget.org/api/v2" ::
+                Sources =   "https://api.nuget.org/v3/index.json" ::
                             "https://www.myget.org/F/cognisant-libs/api/v2" ::
                             p.Sources
                 TimeOut = TimeSpan.FromMinutes 10.
             }))
     )
-

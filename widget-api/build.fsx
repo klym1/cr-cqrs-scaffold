@@ -3,7 +3,7 @@
 
 open Fake
 open System
-open BuildCommon
+open build.common
 
 let projectName = "Widgets"
 let buildDir = "./build/"
