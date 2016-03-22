@@ -3,6 +3,7 @@ namespace build
 module common =
 
     open Fake
+    open Fake.Testing.NUnit3
     open System
 
     let buildMode = getBuildParamOrDefault "buildMode" "Release"
@@ -33,13 +34,13 @@ module common =
             }) "Template.nuspec"
 
         
-    let runTests testPattern outputPath = (fun _ -> 
+    let runTests testPattern outputPath outputFile = (fun _ -> 
         !! (testPattern)
-            |> NUnit (fun p ->
+            |> NUnit3 (fun p ->
                 {p with 
-                    DisableShadowCopy = true;
-                    ToolPath = "../tools/NUnit";
-                    OutputFile = outputPath
+                    ShadowCopy = false;
+                    ToolPath = "../tools/nunit/nunit3-console.exe";
+                    ResultSpecs = [outputPath + outputFile];
                 }
             )
     )

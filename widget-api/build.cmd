@@ -1,7 +1,7 @@
 @echo off
 
 If NOT exist "./packages/FAKE/tools/Fake.exe" (
-".nuget/NuGet.exe" "Install" "FAKE" "-OutputDirectory" "packages" "-ExcludeVersion" "-version" "4.7.0"
+".nuget/NuGet.exe" "Install" "FAKE" "-OutputDirectory" "packages" "-ExcludeVersion"
 )
 
 SET TARGET="Default"

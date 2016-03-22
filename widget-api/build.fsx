@@ -35,7 +35,7 @@ Target "Build-Tests"
     (build "**/*.Tests.csproj" testDir)
 
 Target "Test" 
-    (runTests (testDir + "/*.Tests.dll") (testDir + projectName + ".TestResults.xml"))
+    (runTests (testDir + "/*.Tests.dll") testDir (projectName + ".TestResults.xml"))
 
 Target "Package" DoNothing
 Target "Build" DoNothing
