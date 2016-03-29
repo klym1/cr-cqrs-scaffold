@@ -10,10 +10,10 @@ namespace ConsoleApiHost
     {
         public static LogManager ConfigureLogary(string serviceName, string logPath, string errorLogPath, string logStashHostName, ushort logStashPort)
         {
-            var stream = File.Open(logPath, FileMode.Append, FileAccess.Write, FileShare.Read);
+            var stream = File.Open(logPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
             var writer = new StreamWriter(stream);
 
-            var errorStream = File.Open(errorLogPath, FileMode.Append, FileAccess.Write, FileShare.Read);
+            var errorStream = File.Open(errorLogPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
             var errorWriter = new StreamWriter(errorStream);
 
 #if DEBUG
