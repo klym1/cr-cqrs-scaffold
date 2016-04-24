@@ -19,6 +19,7 @@ using Nancy.Diagnostics;
 using Nancy.Extensions;
 using Nancy.Responses;
 using Nancy.TinyIoc;
+using NancyModules;
 using HttpStatusCode = Nancy.HttpStatusCode;
 
 namespace ConsoleApiHost
@@ -183,6 +184,7 @@ namespace ConsoleApiHost
             container.Register<IViewModelWriter>(viewmodel);
 
             var multiplexingDispatcher = new MultiplexingDispatcher<ResolvedEvent>(GetDispatchers(container).ToArray());
+            var commandDispatcher = new CommmandDispatcher(new MultiplexingDispatcher<object>(GetCommandDispatchers(container).ToArray()));
 
             snapshottingDispatcher.InnerDispatcher = multiplexingDispatcher;
 
@@ -191,13 +193,15 @@ namespace ConsoleApiHost
             container.Register<IDispatcher<ResolvedEvent>>(loggingDispatcher);
 
             var subscriber = new EventStoreSubscriber(conn, loggingDispatcher, streamName, esLogger, startingEvent, 4096, 70000);
-
+            
             container.Register(subscriber);
+            container.Register<ICommandDispatcher>(commandDispatcher);
         }
 
         protected abstract void ViewModelLoaded(InMemoryViewModelRepository repo);
 
         protected abstract List<IDispatcher<ResolvedEvent>> GetDispatchers(TinyIoCContainer container);
+        protected abstract List<IDispatcher<object>> GetCommandDispatchers(TinyIoCContainer container);
 
         protected abstract IEnumerable<object> GetPairs(InMemoryViewModelRepository repo);
 

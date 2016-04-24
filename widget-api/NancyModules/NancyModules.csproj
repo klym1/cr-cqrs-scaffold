@@ -60,7 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICommandDispatcher.cs" />
     <Compile Include="RequestModels\WidgetPostModel.cs" />
+    <Compile Include="WriteBaseModule.cs" />
     <Compile Include="WriteModule.cs" />
     <Compile Include="ReadModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

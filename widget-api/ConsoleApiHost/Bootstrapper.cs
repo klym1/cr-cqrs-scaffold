@@ -15,6 +15,18 @@ namespace ConsoleApiHost
 {
     public class Bootstrapper : RestApiBootstrapper
     {
+        protected override List<IDispatcher<object>> GetCommandDispatchers(TinyIoCContainer container)
+        {
+            var widgetCommandHandler = new WidgetCommandHandler(container.Resolve<IAggregateRepository>());
+
+            var typedRegistry = new MessageHandlerRegistry<Type>();
+            typedRegistry.AddByConvention(widgetCommandHandler);
+
+            var commandsDispatcher = new RawMessageDispatcher<object>(typedRegistry);
+
+            return new List<IDispatcher<object>> { commandsDispatcher };
+        } 
+
         protected override List<IDispatcher<ResolvedEvent>> GetDispatchers(TinyIoCContainer container)
         {
             var widgetDenormalizer = new WidgetDenormalizer(container.Resolve<IViewModelWriter>());
